@@ -6,20 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yihuan18.github.io">
-  <title>JVM参数设置及调优工具 | 兔窝|Yihuan的博客</title>
+  <title>谈谈Mybatis缓存 | 兔窝|Yihuan的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="jvm辣么多参数，记起来太困难了，偷偷给自己总结一下，按需查询～ JVM参数设置内存区域 Java堆1234-Xmx #最大堆容量-Xms #最小堆容量-XX:+/-UseTLAB #是否使用Thread Local Allocation Buffer(TLAB)-XX:+HeapDumpOnOutOfMemoryError #内存异常时dump出当前的内存堆转储快照">
-<meta name="keywords" content="java,面试,jvm">
+  <meta name="description" content="Mybatis用了那么久，知道Mytabis里面有缓存吗">
+<meta name="keywords" content="java,面试,mybatis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM参数设置及调优工具">
-<meta property="og:url" content="https://yihuan18.github.io/2019/09/16/JVM参数设置及调优工具/index.html">
+<meta property="og:title" content="谈谈Mybatis缓存">
+<meta property="og:url" content="https://yihuan18.github.io/2019/09/24/谈谈Mybatis缓存/index.html">
 <meta property="og:site_name" content="兔窝|Yihuan的博客">
-<meta property="og:description" content="jvm辣么多参数，记起来太困难了，偷偷给自己总结一下，按需查询～ JVM参数设置内存区域 Java堆1234-Xmx #最大堆容量-Xms #最小堆容量-XX:+/-UseTLAB #是否使用Thread Local Allocation Buffer(TLAB)-XX:+HeapDumpOnOutOfMemoryError #内存异常时dump出当前的内存堆转储快照">
+<meta property="og:description" content="Mybatis用了那么久，知道Mytabis里面有缓存吗">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-17T06:03:14.522Z">
+<meta property="og:image" content="https://yihuan18.github.io/imgs/image-20190924125451387.png">
+<meta property="og:image" content="https://yihuan18.github.io/imgs/6e38df6a.jpg">
+<meta property="og:image" content="https://yihuan18.github.io/imgs/28399eba.png">
+<meta property="og:updated_time" content="2019-09-24T05:51:03.717Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JVM参数设置及调优工具">
-<meta name="twitter:description" content="jvm辣么多参数，记起来太困难了，偷偷给自己总结一下，按需查询～ JVM参数设置内存区域 Java堆1234-Xmx #最大堆容量-Xms #最小堆容量-XX:+/-UseTLAB #是否使用Thread Local Allocation Buffer(TLAB)-XX:+HeapDumpOnOutOfMemoryError #内存异常时dump出当前的内存堆转储快照">
+<meta name="twitter:title" content="谈谈Mybatis缓存">
+<meta name="twitter:description" content="Mybatis用了那么久，知道Mytabis里面有缓存吗">
+<meta name="twitter:image" content="https://yihuan18.github.io/imgs/image-20190924125451387.png">
   
     <link rel="alternative" href="/atom.xml" title="兔窝|Yihuan的博客" type="application/atom+xml">
   
@@ -159,146 +163,74 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JVM参数设置及调优工具" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-谈谈Mybatis缓存" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JVM参数设置及调优工具
+      谈谈Mybatis缓存
     </h1>
   
 
         
-        <a href="/2019/09/16/JVM参数设置及调优工具/" class="archive-article-date">
-  	<time datetime="2019-09-16T11:09:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-16</time>
+        <a href="/2019/09/24/谈谈Mybatis缓存/" class="archive-article-date">
+  	<time datetime="2019-09-24T03:18:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>jvm辣么多参数，记起来太困难了，偷偷给自己总结一下，按需查询～</p>
-<h1 id="JVM参数设置"><a href="#JVM参数设置" class="headerlink" title="JVM参数设置"></a>JVM参数设置</h1><h2 id="内存区域"><a href="#内存区域" class="headerlink" title="内存区域"></a>内存区域</h2><ul>
-<li>Java堆<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-Xmx <span class="comment">#最大堆容量</span></span><br><span class="line">-Xms <span class="comment">#最小堆容量</span></span><br><span class="line">-XX:+/-UseTLAB <span class="comment">#是否使用Thread Local Allocation Buffer(TLAB)</span></span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError <span class="comment">#内存异常时dump出当前的内存堆转储快照</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
+        <p>Mybatis用了那么久，知道Mytabis里面有缓存吗</p>
 <a id="more"></a>
 
-<ul>
-<li><p>方法区</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:PermSize</span><br><span class="line">-XX:MaxPermSize <span class="comment">#方法区大小</span></span><br></pre></td></tr></table></figure>
+<h1 id="Mybatis缓存"><a href="#Mybatis缓存" class="headerlink" title="Mybatis缓存"></a>Mybatis缓存</h1><p>Mybatis 中有一级缓存和二级缓存，缓存机制如下图。</p>
+<p>这里有一篇美团技术团队关于<a href="https://tech.meituan.com/2018/01/19/mybatis-cache.html" target="_blank" rel="noopener">mytabis缓存机制</a>的介绍</p>
+<p><img src="/imgs/image-20190924125451387.png" alt="image-20190924125451387"></p>
+<h1 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h1><h2 id="一级缓存介绍"><a href="#一级缓存介绍" class="headerlink" title="一级缓存介绍"></a>一级缓存介绍</h2><p>一级缓存是指 SqlSession 级别的缓存，当在同一个 SqlSession 中进行相同的 SQL 语句查询时，第二次以<br>后的查询不会从数据库查询，而是直接从缓存中获取，一级缓存最多缓存 1024 条 SQL。</p>
+<p>第一次发出一个查询 sql，sql 查询结果写入 sqlsession 的一级缓存中，缓存使用的数据结构是一 个 map。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">key:MapperID + offset + <span class="built_in">limit</span> + Sql + 所有的入参 </span><br><span class="line">value:用户信息</span><br></pre></td></tr></table></figure>
+
+<p>同一个 sqlsession 再次发出相同的 sql，就从缓存中取出数据。如果两次中间出现 commit 操作 (修改、添加、删除)，本 sqlsession 中的一级缓存区域全部清空，下次再去缓存中查询不到所 以要从数据库查询，从数据库查询到再写入缓存。 </p>
+<p><img src="/imgs/6e38df6a.jpg" alt="img"></p>
+<h2 id="一级缓存配置"><a href="#一级缓存配置" class="headerlink" title="一级缓存配置"></a>一级缓存配置</h2><p>我们来看看如何使用MyBatis一级缓存。开发者只需在MyBatis的配置文件中，添加如下语句，就可以使用一级缓存。共有两个选项，<code>SESSION</code>或者<code>STATEMENT</code>，默认是<code>SESSION</code>级别，即在一个MyBatis会话中执行的所有语句，都会共享这一个缓存。一种是<code>STATEMENT</code>级别，可以理解为缓存只对当前执行的这一个<code>Statement</code>有效。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"localCacheScope"</span> <span class="attr">value</span>=<span class="string">"SESSION"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="一级缓存总结"><a href="#一级缓存总结" class="headerlink" title="一级缓存总结"></a>一级缓存总结</h2><ol>
+<li>MyBatis一级缓存的生命周期和SqlSession一致。</li>
+<li>MyBatis一级缓存内部设计简单，只是一个没有容量限定的HashMap，在缓存的功能性上有所欠缺。</li>
+<li>MyBatis的一级缓存最大范围是SqlSession内部，有多个SqlSession或者分布式的环境下，数据库写操作会引起脏数据，建议设定缓存级别为Statement。</li>
+</ol>
+<h1 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h1><h2 id="二级缓存介绍"><a href="#二级缓存介绍" class="headerlink" title="二级缓存介绍"></a>二级缓存介绍</h2><p>二级缓存的范围是 mapper 级别(mapper 同一个命名空间)，mapper 以命名空间为单位创建缓存数据结构，结构是 map。mybatis 的二级缓存是通过 CacheExecutor 实现的。CacheExecutor 其实是 Executor 的代理对象。所有的查询操作，在 CacheExecutor 中都会先匹配缓存中是否存 在，不存在则查询数据库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key:Statement Id + offset + <span class="built_in">limit</span> + Sql + 所有的入参</span><br></pre></td></tr></table></figure>
+
+<p><img src="/imgs/28399eba.png" alt="img"></p>
+<h2 id="二级缓存配置"><a href="#二级缓存配置" class="headerlink" title="二级缓存配置"></a>二级缓存配置</h2><p>具体使用需要配置: </p>
+<ol>
+<li><p>Mybatis 全局配置中启用二级缓存配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"cacheEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>虚拟机栈</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xss <span class="comment">#设置栈内存容量</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>本地方法栈</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xoss <span class="comment">#设置本地方法栈大小（在hotspot中无效，因为不区分虚拟机栈和本地方法栈）</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>直接内存</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:MaxDirectMemorySize <span class="comment">#设置最大直接内存大小</span></span><br></pre></td></tr></table></figure>
+<li><p>在对应的 Mapper.xml 中配置 cache 节点<br>cache标签用于声明这个namespace使用二级缓存，并且可以自定义配置。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
 </li>
-</ul>
-<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+PrintGCDetails <span class="comment">#打印内存回收日志</span></span><br></pre></td></tr></table></figure>
+</ol>
+<blockquote>
+<p>type：cache使用的类型，默认是PerpetualCache，这在一级缓存中提到过。<br>eviction： 定义回收的策略，常见的有FIFO，LRU。<br>flushInterval： 配置一定时间自动刷新缓存，单位是毫秒。<br>size： 最多缓存对象的个数。<br>readOnly： 是否只读，若配置可读写，则需要对应的实体类能够序列化。<br>blocking： 若缓存中找不到对应的key，是否会一直blocking，直到有对应的数据进入缓存。</p>
+</blockquote>
+<p>cache-ref代表引用别的命名空间的Cache配置，两个命名空间的操作使用的是同一个Cache。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache-ref</span> <span class="attr">namespace</span>=<span class="string">"mapper.StudentMapper"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>新生代</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-Xmn <span class="comment">#新生代大小</span></span><br><span class="line">-XX:SurvivorRatio <span class="comment">#Eden与Survivor区的比例</span></span><br><span class="line">-XX:PretenureSizeThreshold <span class="comment">#晋升老年代的对象大小</span></span><br><span class="line">-XX:MaxTenuringThreshold <span class="comment">#晋升到老年代的对象年龄</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>方法区回收（永久代）</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-Xnoclassgc <span class="comment">#是否对类进行回收</span></span><br><span class="line">-verbose:class</span><br><span class="line">-XX:+TraceClassLoading</span><br><span class="line">-XX:+TraceClassUnLoading <span class="comment">#查看类加载和卸载信息</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Serial</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseSerialGC <span class="comment">#使用Serial + SerialOld</span></span><br><span class="line">-XX:SurvivorRatio</span><br><span class="line">-XX:PretenureSizeThreshold</span><br><span class="line">-XX:HandlePromotionFailure</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>ParNew</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseParNewGC <span class="comment">#使用ParNew + SerialOld</span></span><br><span class="line">-XX:ParallelGCThreads <span class="comment">#限制垃圾收集的线程数</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Parallel Scavenge</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ParNew中的所有参数，以及如下参数：</span></span><br><span class="line"></span><br><span class="line">-XX:+UseParallelGC <span class="comment">#使用ParallelScavenge + SerialOld</span></span><br><span class="line">-XX:MaxGCPauseMillis <span class="comment">#垃圾回收最大停顿时间</span></span><br><span class="line">-XX:GCTimeRatio <span class="comment">#设置吞吐量大小</span></span><br><span class="line">-XX:+UseAdaptiveSizePolicy <span class="comment">#自适应，使用后无需指定新生代大小，比例等参数</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>ParallelOld</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseParallelOldGC <span class="comment">#使用ParallelScavenge + ParallelOld</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>CMS(Concurrent Mark Sweep)</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseConcMarkSweepGC <span class="comment">#使用ParNew + CMS + SerialOld</span></span><br><span class="line">-XX:CMSInitiatingOccupancyFraction <span class="comment">#触发老年代GC的内存占用比例</span></span><br><span class="line">-XX:HandlePromotionFailure <span class="comment">#是否允许担保失败</span></span><br><span class="line">-XX:+UseCMSCompactAtFullCollection <span class="comment">#FullGC时开启内存碎片的合并整理过程（默认开启）</span></span><br><span class="line">-XX:CMSFullGCsBeforeCompaction <span class="comment">#执行多少次FullGC后进行内存压缩（默认为0，即每次都会压缩）</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="JVM工具"><a href="#JVM工具" class="headerlink" title="JVM工具"></a>JVM工具</h1><h2 id="监控和故障处理工具"><a href="#监控和故障处理工具" class="headerlink" title="监控和故障处理工具"></a>监控和故障处理工具</h2><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>主要作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>jps</td>
-<td>JVM Process Status Tool 显示指定系统内所有的HotSpot虚拟机进程</td>
-</tr>
-<tr>
-<td>jstat</td>
-<td>JVM Staticstics Monitoring Tool 用于收集虚拟机各方面的运行数据</td>
-</tr>
-<tr>
-<td>jinfo</td>
-<td>Configuration Info for Java 显示虚拟机配置信息</td>
-</tr>
-<tr>
-<td>jmap</td>
-<td>Memory Map for Java 生成虚拟机内存转储快照(heapdump文件)</td>
-</tr>
-<tr>
-<td>jhat</td>
-<td>JVM Heap Dump Browser 用于分析heapdump文件,它会建立一个http/html服务器,让用户可以在浏览器上查看分析结果</td>
-</tr>
-<tr>
-<td>jstatck</td>
-<td>Stack Trace for Java 显示虚拟机的线程快照</td>
-</tr>
-</tbody></table>
-<h3 id="jps"><a href="#jps" class="headerlink" title="jps"></a>jps</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps [options] [hostid]</span><br></pre></td></tr></table></figure>
-
-<p>它的功能和unix命令ps类似: 可以列出正在运行的虚拟机进程, 并显示虚拟机执行主类名称及这些进程的本地虚拟机唯一ID(Local Virtual Machine Identifier , LVMID). </p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-q</td>
-<td>只输出LVMID,省略主类名</td>
-</tr>
-<tr>
-<td>-m</td>
-<td>输出虚拟机进程启动时传递给主类的main()函数的参数</td>
-</tr>
-<tr>
-<td>-l</td>
-<td>输出主类的全名,如果进程执行的是jar包,输出jar路径</td>
-</tr>
-<tr>
-<td>-v</td>
-<td>输出虚拟机进程启动时JVM参数</td>
-</tr>
-</tbody></table>
-<p>待补充<a href="https://www.jianshu.com/p/6357eb854d08" target="_blank" rel="noopener">https://www.jianshu.com/p/6357eb854d08</a>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </p>
+<ol start="3">
+<li>在对应的 select 查询节点中添加 useCache=true </li>
+</ol>
+<h2 id="二级缓存总结"><a href="#二级缓存总结" class="headerlink" title="二级缓存总结"></a>二级缓存总结</h2><ol>
+<li>MyBatis的二级缓存相对于一级缓存来说，实现了<code>SqlSession</code>之间缓存数据的共享，同时粒度更加的细，能够到<code>namespace</code>级别，通过Cache接口实现类不同的组合，对Cache的可控性也更强。</li>
+<li>MyBatis在多表查询时，极大可能会出现脏数据，有设计上的缺陷，安全使用二级缓存的条件比较苛刻。</li>
+<li>在分布式环境下，由于默认的MyBatis Cache实现都是基于本地的，分布式环境下必然会出现读取到脏数据，需要使用集中式缓存将MyBatis的Cache接口实现，有一定的开发成本，直接使用Redis、Memcached等分布式缓存可能成本更低，安全性也更高。</li>
+</ol>
 
       
 
@@ -351,7 +283,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
         		</li>
       		
 		</ul>
@@ -407,7 +339,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yihuan18.github.io/2019/09/16/JVM参数设置及调优工具/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yihuan18.github.io/2019/09/24/谈谈Mybatis缓存/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -421,18 +353,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/16/JVM从入门到放弃/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JVM从入门到放弃
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/09/16/java8中方法区的String及整型常量/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">java8中方法区的String及整型常量</div>
+    <a href="/2019/09/17/实习项目总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">实习项目总结</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -471,7 +394,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "https://yihuan18.github.io/2019/09/16/JVM参数设置及调优工具/",
+  id: "https://yihuan18.github.io/2019/09/24/谈谈Mybatis缓存/",
   owner: 'yihuan18',
   repo: 'yihuan18.github.io',
   oauth: {

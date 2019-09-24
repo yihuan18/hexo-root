@@ -6,20 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yihuan18.github.io">
-  <title>JVM参数设置及调优工具 | 兔窝|Yihuan的博客</title>
+  <title>Tag: mybatis | 兔窝|Yihuan的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="jvm辣么多参数，记起来太困难了，偷偷给自己总结一下，按需查询～ JVM参数设置内存区域 Java堆1234-Xmx #最大堆容量-Xms #最小堆容量-XX:+/-UseTLAB #是否使用Thread Local Allocation Buffer(TLAB)-XX:+HeapDumpOnOutOfMemoryError #内存异常时dump出当前的内存堆转储快照">
-<meta name="keywords" content="java,面试,jvm">
-<meta property="og:type" content="article">
-<meta property="og:title" content="JVM参数设置及调优工具">
-<meta property="og:url" content="https://yihuan18.github.io/2019/09/16/JVM参数设置及调优工具/index.html">
+  <meta name="description" content="电子科技大学，java后端开发菜鸟程序媛，一同成长">
+<meta name="keywords" content="java,vim,spring,springboot,程序媛">
+<meta property="og:type" content="website">
+<meta property="og:title" content="兔窝|Yihuan的博客">
+<meta property="og:url" content="https://yihuan18.github.io/tags/mybatis/index.html">
 <meta property="og:site_name" content="兔窝|Yihuan的博客">
-<meta property="og:description" content="jvm辣么多参数，记起来太困难了，偷偷给自己总结一下，按需查询～ JVM参数设置内存区域 Java堆1234-Xmx #最大堆容量-Xms #最小堆容量-XX:+/-UseTLAB #是否使用Thread Local Allocation Buffer(TLAB)-XX:+HeapDumpOnOutOfMemoryError #内存异常时dump出当前的内存堆转储快照">
+<meta property="og:description" content="电子科技大学，java后端开发菜鸟程序媛，一同成长">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-17T06:03:14.522Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JVM参数设置及调优工具">
-<meta name="twitter:description" content="jvm辣么多参数，记起来太困难了，偷偷给自己总结一下，按需查询～ JVM参数设置内存区域 Java堆1234-Xmx #最大堆容量-Xms #最小堆容量-XX:+/-UseTLAB #是否使用Thread Local Allocation Buffer(TLAB)-XX:+HeapDumpOnOutOfMemoryError #内存异常时dump出当前的内存堆转储快照">
+<meta name="twitter:title" content="兔窝|Yihuan的博客">
+<meta name="twitter:description" content="电子科技大学，java后端开发菜鸟程序媛，一同成长">
   
     <link rel="alternative" href="/atom.xml" title="兔窝|Yihuan的博客" type="application/atom+xml">
   
@@ -159,185 +158,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JVM参数设置及调优工具" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      JVM参数设置及调优工具
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/24/谈谈Mybatis缓存/" class="archive-article-date">
+  	<time datetime="2019-09-24T03:18:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-24</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/09/24/谈谈Mybatis缓存/">谈谈Mybatis缓存</a>
     </h1>
   
 
-        
-        <a href="/2019/09/16/JVM参数设置及调优工具/" class="archive-article-date">
-  	<time datetime="2019-09-16T11:09:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>jvm辣么多参数，记起来太困难了，偷偷给自己总结一下，按需查询～</p>
-<h1 id="JVM参数设置"><a href="#JVM参数设置" class="headerlink" title="JVM参数设置"></a>JVM参数设置</h1><h2 id="内存区域"><a href="#内存区域" class="headerlink" title="内存区域"></a>内存区域</h2><ul>
-<li>Java堆<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-Xmx <span class="comment">#最大堆容量</span></span><br><span class="line">-Xms <span class="comment">#最小堆容量</span></span><br><span class="line">-XX:+/-UseTLAB <span class="comment">#是否使用Thread Local Allocation Buffer(TLAB)</span></span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError <span class="comment">#内存异常时dump出当前的内存堆转储快照</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<a id="more"></a>
-
-<ul>
-<li><p>方法区</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:PermSize</span><br><span class="line">-XX:MaxPermSize <span class="comment">#方法区大小</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>虚拟机栈</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xss <span class="comment">#设置栈内存容量</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>本地方法栈</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xoss <span class="comment">#设置本地方法栈大小（在hotspot中无效，因为不区分虚拟机栈和本地方法栈）</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>直接内存</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:MaxDirectMemorySize <span class="comment">#设置最大直接内存大小</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+PrintGCDetails <span class="comment">#打印内存回收日志</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>新生代</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-Xmn <span class="comment">#新生代大小</span></span><br><span class="line">-XX:SurvivorRatio <span class="comment">#Eden与Survivor区的比例</span></span><br><span class="line">-XX:PretenureSizeThreshold <span class="comment">#晋升老年代的对象大小</span></span><br><span class="line">-XX:MaxTenuringThreshold <span class="comment">#晋升到老年代的对象年龄</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>方法区回收（永久代）</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-Xnoclassgc <span class="comment">#是否对类进行回收</span></span><br><span class="line">-verbose:class</span><br><span class="line">-XX:+TraceClassLoading</span><br><span class="line">-XX:+TraceClassUnLoading <span class="comment">#查看类加载和卸载信息</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Serial</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseSerialGC <span class="comment">#使用Serial + SerialOld</span></span><br><span class="line">-XX:SurvivorRatio</span><br><span class="line">-XX:PretenureSizeThreshold</span><br><span class="line">-XX:HandlePromotionFailure</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>ParNew</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseParNewGC <span class="comment">#使用ParNew + SerialOld</span></span><br><span class="line">-XX:ParallelGCThreads <span class="comment">#限制垃圾收集的线程数</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Parallel Scavenge</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ParNew中的所有参数，以及如下参数：</span></span><br><span class="line"></span><br><span class="line">-XX:+UseParallelGC <span class="comment">#使用ParallelScavenge + SerialOld</span></span><br><span class="line">-XX:MaxGCPauseMillis <span class="comment">#垃圾回收最大停顿时间</span></span><br><span class="line">-XX:GCTimeRatio <span class="comment">#设置吞吐量大小</span></span><br><span class="line">-XX:+UseAdaptiveSizePolicy <span class="comment">#自适应，使用后无需指定新生代大小，比例等参数</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>ParallelOld</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseParallelOldGC <span class="comment">#使用ParallelScavenge + ParallelOld</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>CMS(Concurrent Mark Sweep)</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseConcMarkSweepGC <span class="comment">#使用ParNew + CMS + SerialOld</span></span><br><span class="line">-XX:CMSInitiatingOccupancyFraction <span class="comment">#触发老年代GC的内存占用比例</span></span><br><span class="line">-XX:HandlePromotionFailure <span class="comment">#是否允许担保失败</span></span><br><span class="line">-XX:+UseCMSCompactAtFullCollection <span class="comment">#FullGC时开启内存碎片的合并整理过程（默认开启）</span></span><br><span class="line">-XX:CMSFullGCsBeforeCompaction <span class="comment">#执行多少次FullGC后进行内存压缩（默认为0，即每次都会压缩）</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="JVM工具"><a href="#JVM工具" class="headerlink" title="JVM工具"></a>JVM工具</h1><h2 id="监控和故障处理工具"><a href="#监控和故障处理工具" class="headerlink" title="监控和故障处理工具"></a>监控和故障处理工具</h2><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>主要作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>jps</td>
-<td>JVM Process Status Tool 显示指定系统内所有的HotSpot虚拟机进程</td>
-</tr>
-<tr>
-<td>jstat</td>
-<td>JVM Staticstics Monitoring Tool 用于收集虚拟机各方面的运行数据</td>
-</tr>
-<tr>
-<td>jinfo</td>
-<td>Configuration Info for Java 显示虚拟机配置信息</td>
-</tr>
-<tr>
-<td>jmap</td>
-<td>Memory Map for Java 生成虚拟机内存转储快照(heapdump文件)</td>
-</tr>
-<tr>
-<td>jhat</td>
-<td>JVM Heap Dump Browser 用于分析heapdump文件,它会建立一个http/html服务器,让用户可以在浏览器上查看分析结果</td>
-</tr>
-<tr>
-<td>jstatck</td>
-<td>Stack Trace for Java 显示虚拟机的线程快照</td>
-</tr>
-</tbody></table>
-<h3 id="jps"><a href="#jps" class="headerlink" title="jps"></a>jps</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps [options] [hostid]</span><br></pre></td></tr></table></figure>
-
-<p>它的功能和unix命令ps类似: 可以列出正在运行的虚拟机进程, 并显示虚拟机执行主类名称及这些进程的本地虚拟机唯一ID(Local Virtual Machine Identifier , LVMID). </p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-q</td>
-<td>只输出LVMID,省略主类名</td>
-</tr>
-<tr>
-<td>-m</td>
-<td>输出虚拟机进程启动时传递给主类的main()函数的参数</td>
-</tr>
-<tr>
-<td>-l</td>
-<td>输出主类的全名,如果进程执行的是jar包,输出jar路径</td>
-</tr>
-<tr>
-<td>-v</td>
-<td>输出虚拟机进程启动时JVM参数</td>
-</tr>
-</tbody></table>
-<p>待补充<a href="https://www.jianshu.com/p/6357eb854d08" target="_blank" rel="noopener">https://www.jianshu.com/p/6357eb854d08</a>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/alipay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/wechat.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -351,137 +201,25 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yihuan18.github.io/2019/09/16/JVM参数设置及调优工具/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/09/16/JVM从入门到放弃/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JVM从入门到放弃
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/09/16/java8中方法区的String及整型常量/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">java8中方法区的String及整型常量</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet"href="//imsun.github.io/gitment/style/default.css"> 
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "https://yihuan18.github.io/2019/09/16/JVM参数设置及调优工具/",
-  owner: 'yihuan18',
-  repo: 'yihuan18.github.io',
-  oauth: {
-    client_id: 'de47c470de560347723b',
-    client_secret: '944a0b3867aabbbe9ab4f1a3d953265403fca13e',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+    
 
 
           </div>
@@ -504,9 +242,9 @@ gitment.render('gitment-ctn')
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
