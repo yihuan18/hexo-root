@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://yihuan18.github.io/imgs/image-20190924125451387.png">
 <meta property="og:image" content="https://yihuan18.github.io/imgs/6e38df6a.jpg">
 <meta property="og:image" content="https://yihuan18.github.io/imgs/28399eba.png">
-<meta property="og:updated_time" content="2019-09-24T05:51:03.717Z">
+<meta property="og:updated_time" content="2019-09-24T05:54:10.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="谈谈Mybatis缓存">
 <meta name="twitter:description" content="Mybatis用了那么久，知道Mytabis里面有缓存吗">
@@ -209,14 +209,15 @@
 <p><img src="/imgs/28399eba.png" alt="img"></p>
 <h2 id="二级缓存配置"><a href="#二级缓存配置" class="headerlink" title="二级缓存配置"></a>二级缓存配置</h2><p>具体使用需要配置: </p>
 <ol>
-<li><p>Mybatis 全局配置中启用二级缓存配置</p>
+<li>Mybatis 全局配置中启用二级缓存配置</li>
+</ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"cacheEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在对应的 Mapper.xml 中配置 cache 节点<br>cache标签用于声明这个namespace使用二级缓存，并且可以自定义配置。</p>
+
+<ol start="2">
+<li>在对应的 Mapper.xml 中配置 cache 节点<br>cache标签用于声明这个namespace使用二级缓存，并且可以自定义配置。</li>
+</ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
 <blockquote>
 <p>type：cache使用的类型，默认是PerpetualCache，这在一级缓存中提到过。<br>eviction： 定义回收的策略，常见的有FIFO，LRU。<br>flushInterval： 配置一定时间自动刷新缓存，单位是毫秒。<br>size： 最多缓存对象的个数。<br>readOnly： 是否只读，若配置可读写，则需要对应的实体类能够序列化。<br>blocking： 若缓存中找不到对应的key，是否会一直blocking，直到有对应的数据进入缓存。</p>
 </blockquote>
@@ -494,18 +495,6 @@ gitment.render('gitment-ctn')
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
               </li>
              
@@ -514,15 +503,27 @@ gitment.render('gitment-ctn')
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nio</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
             
             <div class="clearfix"></div>

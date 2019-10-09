@@ -66,14 +66,18 @@ key:Statement Id + offset + limit + Sql + 所有的入参
 具体使用需要配置: 
 
 1. Mybatis 全局配置中启用二级缓存配置
+
 ```xml
 <setting name="cacheEnabled" value="true"/>
 ```
+
 2. 在对应的 Mapper.xml 中配置 cache 节点 
 cache标签用于声明这个namespace使用二级缓存，并且可以自定义配置。
+
 ```xml
 <cache/>
 ```
+
 >type：cache使用的类型，默认是PerpetualCache，这在一级缓存中提到过。
 >eviction： 定义回收的策略，常见的有FIFO，LRU。
 >flushInterval： 配置一定时间自动刷新缓存，单位是毫秒。
@@ -82,9 +86,11 @@ cache标签用于声明这个namespace使用二级缓存，并且可以自定义
 >blocking： 若缓存中找不到对应的key，是否会一直blocking，直到有对应的数据进入缓存。
 
 cache-ref代表引用别的命名空间的Cache配置，两个命名空间的操作使用的是同一个Cache。
+
 ```xml
 <cache-ref namespace="mapper.StudentMapper"/>
 ```
+
 3. 在对应的 select 查询节点中添加 useCache=true 
 
 ## 二级缓存总结
