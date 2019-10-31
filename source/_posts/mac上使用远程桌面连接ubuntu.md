@@ -1,18 +1,17 @@
 ---
-title: ubuntu远程桌面
+title: mac上使用远程桌面连接ubuntu
 typora-root-url: ../../source/
 date: 2019-10-31 20:04:37
 tags:
 - ubuntu
 - 远程桌面
+- 随笔
 ---
-
-# mac上使用远程桌面连接ubuntu
 
 今天在教研室拆键帽清洁，不小心把一个键帽连轴拔起。。。于是台式没有键盘用了
 然后想直接在mac上使用远程桌面使用台式机
 台式系统为ubuntu 16.04，我们要使用 vnc 远程桌面 ubunt16.04的自带桌面 unity，教程如下：
-
+<!--more-->
 ## 安装x11vnc
 1. 安装
 ```bash
