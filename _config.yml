@@ -114,7 +114,7 @@ subnav:
   github: "https://github.com/yihuan18"
   weibo: "https://weibo.com/u/2679008490"
   zhihu: "https://www.zhihu.com/people/zhou-yi-huan-13/activities"
-  qq: http://wpa.qq.com/msgrd?v=3&uin=309811616&site=qq&menu=yes
+  #qq: http://wpa.qq.com/msgrd?v=3&uin=309811616&site=qq&menu=yes
   #weixin: "#"
   #jianshu: "#"
   #douban: "#"
@@ -163,7 +163,7 @@ toc_empty_wording: '目录，不存在的…'
 top: true
 
 # Miscellaneous
-baidu_analytics: ''
+baidu_analytics: '111c86e3789778e46665a01fd49d0a45'
 google_analytics: ''
 favicon: /img/rabbi.jpg
 

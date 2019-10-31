@@ -18,7 +18,11 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://yihuan18.github.io/imgs/image-20190917202310225.png">
 <meta property="og:image" content="https://yihuan18.github.io/imgs/image-20190917202510293.png">
-<meta property="og:updated_time" content="2019-09-23T11:59:29.921Z">
+<meta property="og:image" content="https://yihuan18.github.io/imgs/7ce2bc17af5a2110b601e05102b09b63.jpg">
+<meta property="og:image" content="https://yihuan18.github.io/imgs/df56844cafc6551b99e471f91fb6c2e9.png">
+<meta property="og:image" content="https://yihuan18.github.io/imgs/ebb9c2c607b9ab24c8e92d76ea460095.png">
+<meta property="og:image" content="https://yihuan18.github.io/imgs/image-20190924140337716.png">
+<meta property="og:updated_time" content="2019-09-24T07:40:03.463Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实习项目总结">
 <meta name="twitter:description" content="价格门户项目项目功能构建定价执行协同门户，供应商、采购、营销场三方协同，实现一键定价。提供商家，小二一个统一的调价入口，包含自动算法调价。">
@@ -39,6 +43,17 @@
   
 
   
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	//hm.src = "https://hm.baidu.com/hm.js?111c86e3789778e46665a01fd49d0a45";
+	hm.src = "https://hm.baidu.com/hm.js?111c86e3789778e46665a01fd49d0a45";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
 
 </head>
 </html>
@@ -93,8 +108,6 @@
 		        
 					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-yi-huan-13/activities" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
-					<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=309811616&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
-		        
 			</div>
 		</nav>
 	</header>		
@@ -135,8 +148,6 @@
 						<a class="weibo" target="_blank" href="https://weibo.com/u/2679008490" title="weibo"><i class="icon-weibo"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-yi-huan-13/activities" title="zhihu"><i class="icon-zhihu"></i></a>
-			        
-						<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=309811616&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
 			        
 				</div>
 			</nav>
@@ -225,7 +236,25 @@
 <p>Atom 模块真正和物理数据库交互，提供数据库配置动态修改能力。<br>改层负责动态创建，添加，减少数据源。管理着底层的数据库IP，连接等信息；底层对物理数据库做了代理，对单库的JDBC做了一层封装，执行底层单库的SQL；线程数、执行次数等状态的统计等。</p>
 </li>
 </ul>
-<h3 id="Metaq"><a href="#Metaq" class="headerlink" title="Metaq"></a>Metaq</h3>
+<h3 id="Metaq"><a href="#Metaq" class="headerlink" title="Metaq"></a>Metaq</h3><p>参考：</p>
+<p><a href="https://yq.aliyun.com/articles/616515" target="_blank" rel="noopener">metaq学习笔记</a></p>
+<p><a href="https://blog.csdn.net/alinshen/article/details/80583214" target="_blank" rel="noopener">关于消息队列的一些常见问题</a></p>
+<p><img src="/imgs/7ce2bc17af5a2110b601e05102b09b63.jpg" alt="img"></p>
+<h4 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h4><p>Name Server：注册服务器，需要将topic注册到上面，对应的操作是在metaq平台上发布topic</p>
+<p>Broker：存储转发服务器，每个broker需要与所有的name server建立长连接，从而获取topic信息；分为master和容灾的slaver</p>
+<p>Producer：消息发送方，需要与其中一个name server建立连接，获得路由信息，再与主题对应的broker建立长连接且定时向master发送心跳；消息由producer发送到master，再由master同步到所有broker</p>
+<p>Consumer：消息接收方，需要与其中一个name server建立连接，获得路由信息，再向提供服务的master、slaver建立长连接，具体接收消息时刻选择broker</p>
+<p><img src="/imgs/df56844cafc6551b99e471f91fb6c2e9.png" alt="img"></p>
+<h4 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h4><p>metaq采取的是commitLog+consumeQueue，逻辑分区，即commitLog按照偏移量顺序存储，consumeQueue划分主题、索引查找，同时一个broker对应多个队列，也可以达到存储拓展的功能；metaq的存储结构如下图所示：</p>
+<p><img src="/imgs/ebb9c2c607b9ab24c8e92d76ea460095.png" alt="img"></p>
+<h4 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h4><p>推拉模式：支持pull和长轮训push</p>
+<p>消息标示：topic + tag + msgId</p>
+<h3 id="HSF（High-Speed-Framework）"><a href="#HSF（High-Speed-Framework）" class="headerlink" title="HSF（High Speed Framework）"></a>HSF（High Speed Framework）</h3><p>HSF实现原理：</p>
+<p>• server启动时候向configserver注册<br>• client启动时候向configserver请求list<br>• client缓存list，发现不可用的server，从缓存中remove<br>• configserver通过心跳包维护可用server的list<br>• list有更新的时候，configserver通过带version的报文通知client更新</p>
+<p>服务端与消费端之间使用长连接：</p>
+<p>HSF采用长连接方式进行通信，相比短连接，长连接更具性能优势，避免连接重复创建与销毁带来的缓冲区申请与释放。HSF抽象了连接AbstractClient(Client)，并采用了netty框架作为底层实现。netty是一个性能非常优秀的通信框架，基于反应器模式，内部采用了管线模式来解耦不同层次的逻辑之间的耦合问题。HSF为了强化TCP连接的可用性，增加HeartBeat功能，使用了一个Netty提供的 HashedWheelTimer 的定时任务调度器来执行心跳包的发送(补充：此HashedWheelTimer原理采用轮片式的桶结构，避免每次操作对全部任务的迭代操作，只对将要到期的桶进行操作，此原理也可用于缓存系统设计，在需要进行垃圾回收的情况下只需要按照桶为单位进行内存回收)。</p>
+<p><img src="/imgs/image-20190924140337716.png" alt="image-20190924140337716"></p>
+
       
 
       
@@ -478,14 +507,6 @@ gitment.render('gitment-ctn')
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">博客</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -498,15 +519,31 @@ gitment.render('gitment-ctn')
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">博客</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">远程桌面</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
             
             <div class="clearfix"></div>
