@@ -18,7 +18,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://yihuan18.github.io/imgs/image-20191031201539487.png">
 <meta property="og:image" content="https://yihuan18.github.io/imgs/image-20191031201843585.png">
-<meta property="og:updated_time" content="2019-10-31T12:37:02.864Z">
+<meta property="og:updated_time" content="2019-11-01T05:26:50.480Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac上使用远程桌面连接ubuntu">
 <meta name="twitter:description" content="今天在教研室拆键帽清洁，不小心把一个键帽连轴拔起。。。于是台式没有键盘用了然后想直接在mac上使用远程桌面使用台式机台式系统为ubuntu 16.04，我们要使用 vnc 远程桌面 ubunt16.04的自带桌面 unity，教程如下：">
@@ -196,28 +196,14 @@ var _hmt = _hmt || [];
       
         <p>今天在教研室拆键帽清洁，不小心把一个键帽连轴拔起。。。于是台式没有键盘用了<br>然后想直接在mac上使用远程桌面使用台式机<br>台式系统为ubuntu 16.04，我们要使用 vnc 远程桌面 ubunt16.04的自带桌面 unity，教程如下：</p>
 <a id="more"></a>
-<h2 id="安装x11vnc"><a href="#安装x11vnc" class="headerlink" title="安装x11vnc"></a>安装x11vnc</h2><ol>
-<li><p>安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install x11vnc</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置密码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -storepasswd</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动vnc服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -forever -shared -rfbauth ~/.vnc/passwd</span><br></pre></td></tr></table></figure>
+<h2 id="安装x11vnc"><a href="#安装x11vnc" class="headerlink" title="安装x11vnc"></a>安装x11vnc</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install x11vnc</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
-<h2 id="启动mac远程桌面"><a href="#启动mac远程桌面" class="headerlink" title="启动mac远程桌面"></a>启动mac远程桌面</h2><ol>
-<li>打开mac自带的远程桌面</li>
-<li>输入{ip:端口号}</li>
-</ol>
-<p><img src="/imgs/image-20191031201539487.png" alt="image-20191031201539487"></p>
-<ol start="3">
-<li>输入密码连接即可</li>
-</ol>
-<p>效果如图：</p>
-<p><img src="/imgs/image-20191031201843585.png" alt="image-20191031201843585"></p>
+<h3 id="2-设置密码"><a href="#2-设置密码" class="headerlink" title="2. 设置密码"></a>2. 设置密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -storepasswd</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-启动vnc服务"><a href="#3-启动vnc服务" class="headerlink" title="3. 启动vnc服务"></a>3. 启动vnc服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -forever -shared -rfbauth ~/.vnc/passwd</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动mac远程桌面"><a href="#启动mac远程桌面" class="headerlink" title="启动mac远程桌面"></a>启动mac远程桌面</h2><h3 id="1-打开mac自带的远程桌面"><a href="#1-打开mac自带的远程桌面" class="headerlink" title="1. 打开mac自带的远程桌面"></a>1. 打开mac自带的远程桌面</h3><h3 id="2-输入-ip-端口号"><a href="#2-输入-ip-端口号" class="headerlink" title="2. 输入{ip:端口号}"></a>2. 输入{ip:端口号}</h3><p><img src="/imgs/image-20191031201539487.png" alt="image-20191031201539487"></p>
+<h3 id="3-输入密码连接即可"><a href="#3-输入密码连接即可" class="headerlink" title="3. 输入密码连接即可"></a>3. 输入密码连接即可</h3><h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="/imgs/image-20191031201843585.png" alt="image-20191031201843585"></p>
 
       
 
@@ -339,6 +325,15 @@ var _hmt = _hmt || [];
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/11/01/少年的你/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          少年的你
+        
+      </div>
+    </a>
   
   
     <a href="/2019/09/24/谈谈Mybatis缓存/" id="article-nav-older" class="article-nav-link-wrap">
@@ -493,14 +488,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">博客</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -509,11 +496,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+                <a href="javascript:void(0)" class="js-tag color4">nio</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nio</a>
+                <a href="javascript:void(0)" class="js-tag color3">博客</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">

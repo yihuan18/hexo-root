@@ -13,28 +13,28 @@ tags:
 台式系统为ubuntu 16.04，我们要使用 vnc 远程桌面 ubunt16.04的自带桌面 unity，教程如下：
 <!--more-->
 ## 安装x11vnc
-1. 安装
+### 1. 安装
 ```bash
 sudo apt-get install x11vnc
 ```
-2. 设置密码
+### 2. 设置密码
 ```bash
 x11vnc -storepasswd
 ```
-3. 启动vnc服务
+### 3. 启动vnc服务
 ```bash
 x11vnc -forever -shared -rfbauth ~/.vnc/passwd
 ```
 
 ## 启动mac远程桌面
 
-1. 打开mac自带的远程桌面
-2. 输入{ip:端口号}
+### 1. 打开mac自带的远程桌面
+### 2. 输入{ip:端口号}
 
 ![image-20191031201539487](/imgs/image-20191031201539487.png)
 
-3. 输入密码连接即可
+### 3. 输入密码连接即可
 
-效果如图：
+## 效果
 
 ![image-20191031201843585](/imgs/image-20191031201843585.png)
